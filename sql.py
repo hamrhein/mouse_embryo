@@ -179,7 +179,7 @@ def chunked_file(file_handle, rows=10000, delim="\t"):
 
     yield buf
 
-def build_sql_stringdb_database(alias_file, evidence_file, actions_file, database_file):
+def build_sql_stringdb_database(alias_file, evidence_file, actions_file, database_file, verbose=False):
     """Build Sqlite database from string-db.org organism files"""
     dbh = sqlite3.connect(database_file)
     dbh.isolation_level = None
@@ -194,6 +194,9 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
     else:
         ifs = open(alias_file, mode="r")
 
+    if verbose:
+        print("Creating aliases table", end="...")
+
     for chunk in chunked_file(ifs, rows=10000, delim="\t"):
 
         cur.execute("BEGIN TRANSACTION;")
@@ -205,6 +208,9 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
 
     cur.execute("CREATE INDEX idx_alias ON alias (prot_id, alias);")
 
+    if verbose:
+        print("done")
+
     cur.execute("DROP TABLE IF EXISTS evidence;")
     cur.execute(EVIDENCE_SCHEMA)
 
@@ -214,6 +220,8 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
     else:
         ifs = open(evidence_file, mode="r")
 
+    if verbose:
+        print("Creating evidence table", end="...")
 
     for chunk in chunked_file(ifs, rows=10000, delim=" "):
         cur.execute("BEGIN TRANSACTION;")
@@ -224,6 +232,9 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
     ifs.close()
 
     cur.execute("CREATE INDEX idx_evidence ON evidence (protein1, combined_score);")
+
+    if verbose:
+        print("done")
 
     cur.execute("DROP TABLE IF EXISTS actions;")
     cur.execute(ACTIONS_SCHEMA)
@@ -236,6 +247,9 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
 
     hdr = ifs.readline()
 
+    if verbose:
+        print("Creating molecular action table", end="...")
+
     for chunk in chunked_file(ifs, rows=10000, delim="\t"):
         cur.execute("BEGIN TRANSACTION;")
 
@@ -245,6 +259,9 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
     ifs.close()
 
     cur.execute("CREATE INDEX idx_actions ON actions (item_id_a, score);")
+
+    if verbose:
+        print("done")
 
     dbh.close()
 
