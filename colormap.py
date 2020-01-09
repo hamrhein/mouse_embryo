@@ -23,9 +23,11 @@ class SdblColormapComponent:
         self.lstop = 0.3
         self.ustop = 0.8
         self.color_list = self.cmap(np.linspace(self.lstop, self.ustop, self.nbins))
+        self.lum_list = np.sum(self.color_list * (0.299, 0.587, 0.114, 0.0), axis=1)
 
     def _refresh(self):
         self.color_list = self.cmap(np.linspace(self.lstop, self.ustop, self.nbins))
+        self.lum_list = np.sum(self.color_list * (0.299, 0.587, 0.114, 0.0), axis=1)
 
         if self.parent is not None:
             self.parent._refresh()
@@ -97,6 +99,10 @@ class SdblDivergingColormap:
     def color_list(self):
         return self.cmap.colors
 
+    @property
+    def luminance_list(self):
+        return np.sum(self.cmap.colors * (0.299, 0.587, 0.114, 0.0), axis=1)
+
     def __call__(self, value):
         return self.cmap(value)
 
@@ -120,6 +126,10 @@ class SdblLinearColormap:
     @property
     def color_list(self):
         return self.cmap.colors
+
+    @property
+    def luminance_list(self):
+        return np.sum(self.cmap.colors * (0.299, 0.587, 0.114, 0.0), axis=1)
 
     def __call__(self, value):
         return self.cmap(value)
