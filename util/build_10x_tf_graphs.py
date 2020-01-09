@@ -5,7 +5,13 @@ import argparse
 import sdbl
 import colormap
 
-def build_linear_cmap(hot, cold, ncolors=256, nbins=16):
+import matplotlib
+import matplotlib.colors as colors
+import numpy as np
+import pandas as pd
+
+
+def build_linear_cmap(hot, cold="white", ncolors=256, nbins=16):
     lcm = colors.LinearSegmentedColormap.from_list(name="lcm",
             colors=[cold, hot], N=ncolors)
     cm = colormap.SdblLinearColormap(lcm)
