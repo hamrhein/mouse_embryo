@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 
 import argparse
+import matplotlib
 
 import sdbl
 import colormap
 
-import matplotlib
+import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import numpy as np
 import pandas as pd
@@ -36,7 +37,7 @@ def colorize_graph(gobj, cm, data, bins, fontcolor1="black",
             attr = G.gobj.get_node(n).attr
             attr["style"] = "filled"
             attr["fillcolor"] = nodecolor
-            attr["fontcolor"] = fc
+            attr["fontcolor"] = textcolor
 
 def build_graph(Sobj, gl):
     emodes = ["database", "experimental"]
@@ -108,8 +109,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="")
     parser.add_argument("datafile", help="HDF5 file containing counts, markers, and metadata tables")
     parser.add_argument("sdblfile", help="sdbl database file")
-    parser.add_argument("img_tmpl", help="filename template for network graphs - format: {cluster_name}_some_text.{ext}")
-    parser.add_argument("cb_tmpl", help="filename template for colorbars - format: {cluster_name}_some_text.{ext}")
+    parser.add_argument("--img_tmpl", default="{label}_colored_by_10x_counts.{ext}", help="filename template for network graphs - format: {label}_some_text.{ext}")
+    parser.add_argument("--cb_tmpl", default="{label}_colored_by_10x_counts_colorbar.{ext}", help="filename template for colorbars - format: {label}_some_text.{ext}")
     parser.add_argument("--output_dir", default=".", help="directory to put output into.  default: current directory")
     args = parser.parse_args()
     main(args)
