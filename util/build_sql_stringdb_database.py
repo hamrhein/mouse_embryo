@@ -16,8 +16,8 @@ if __name__ == "__main__":
     parser.add_argument("alias_file", help="example: 10090.protein.aliases.v10.5.txt.gz")
     parser.add_argument("evidence_file", help="example: 10090.protein.links.detailed.v10.5.txt.gz")
     parser.add_argument("actions_file", help="example: 10090.protein.actions.v10.5.txt.gz")
-    parser.add_argument("output_dir", default=".", help="directory to write output into")
     parser.add_argument("output_file", help="database file to output")
+    parser.add_argument("--output_dir", default=".", help="directory to write output into")
 
     args = parser.parse_args()
     main(args)
