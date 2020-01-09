@@ -8,7 +8,7 @@ def main(args):
     output_file = "{}/{}".format(args.output_dir, args.output_file)
     
     build_sql_stringdb_database(args.alias_file, args.evidence_file,
-            args.actions_file, output_file)
+            args.actions_file, output_file, verbose=True)
 
 
 if __name__ == "__main__":
