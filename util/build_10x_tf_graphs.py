@@ -104,6 +104,6 @@ if __name__ == "__main__":
     parser.add_argument("sdblfile", help="sdbl database file")
     parser.add_argument("img_tmpl", help="filename template for network graphs - format: {cluster_name}_some_text.{ext}")
     parser.add_argument("cb_tmpl", help="filename template for colorbars - format: {cluster_name}_some_text.{ext}")
-    parser.add_argument("output_dir", default=".", help="directory to put output into.  default: current directory")
+    parser.add_argument("--output_dir", default=".", help="directory to put output into.  default: current directory")
     args = parser.parse_args()
     main(args)
