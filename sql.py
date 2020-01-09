@@ -195,7 +195,7 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
         ifs = open(alias_file, mode="r")
 
     if verbose:
-        print("Creating aliases table", end="...")
+        print("Creating aliases table", end="...", flush=True)
 
     for chunk in chunked_file(ifs, rows=10000, delim="\t"):
 
@@ -221,7 +221,7 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
         ifs = open(evidence_file, mode="r")
 
     if verbose:
-        print("Creating evidence table", end="...")
+        print("Creating evidence table", end="...", flush=True)
 
     for chunk in chunked_file(ifs, rows=10000, delim=" "):
         cur.execute("BEGIN TRANSACTION;")
@@ -248,7 +248,7 @@ def build_sql_stringdb_database(alias_file, evidence_file, actions_file, databas
     hdr = ifs.readline()
 
     if verbose:
-        print("Creating molecular action table", end="...")
+        print("Creating molecular action table", end="...", flush=True)
 
     for chunk in chunked_file(ifs, rows=10000, delim="\t"):
         cur.execute("BEGIN TRANSACTION;")
