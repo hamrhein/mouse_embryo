@@ -106,7 +106,7 @@ def main(args):
         plt.close(fig)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="")
+    parser = argparse.ArgumentParser(description="Build 10x TF graph images")
     parser.add_argument("datafile", help="HDF5 file containing counts, markers, and metadata tables")
     parser.add_argument("sdblfile", help="sdbl database file")
     parser.add_argument("--img_tmpl", default="{label}_colored_by_10x_counts.{ext}", help="filename template for network graphs - format: {label}_some_text.{ext}")
