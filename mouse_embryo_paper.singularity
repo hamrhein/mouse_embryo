@@ -1,0 +1,78 @@
+Bootstrap: debootstrap
+OSVersion: buster
+MirrorURL: http://ftp.us.debian.org/debian/
+
+%help
+    Build Graphviz figures in support of:
+
+    The changing mouse embryo transcriptome at whole tissue and single-cell
+    resolution
+
+    build_blossom_graph.py         -- Build the Figure 2 blossom graph
+    build_sql_stringdb_database.py -- Build database for String-db library
+    build_10x_tf_graphs.py         -- Build the Figure 4 and 10 network graphs
+
+%environment
+    export LANG="en_US.UTF-8"
+    export PYTHONPATH="/software/sdbl"
+    export PATH="/software/hamrhein:$PATH"
+
+%setup
+    mkdir -p ${SINGULARITY_ROOTFS}/software/sdbl
+    mkdir -p ${SINGULARITY_ROOTFS}/data
+
+    mkdir ${SINGULARITY_ROOTFS}/software/hamrhein
+
+%post
+    echo "deb http://ftp.us.debian.org/debian/ buster contrib non-free" >> /etc/apt/sources.list.d/01_repos.list
+    apt-get update
+    apt-get upgrade -y
+    echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+    echo ttf-mscorefonts-installer msttcorefonts/present-mscorefonts-eula note | debconf-set-selections
+    apt-get install -y unzip wget python3 python3-numpy python3-pandas python3-matplotlib python3-pygraphviz python3-imageio ttf-mscorefonts-installer
+    apt-get clean
+
+    cd /data
+    wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/3nMkLMckn7Gtzdr/download
+    wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/8kZ7dPXrMPXnEAJ/download
+    unzip peng_bloom.zip
+    rm peng_bloom.zip
+    
+    cd /software/sdbl
+    wget https://github.com/hamrhein/sdbl/archive/master.zip
+    unzip -j master.zip
+    rm master.zip
+    chmod 0755 build_sql_stringdb_database.py
+    chmod 0755 build_10x_tf_graphs.py
+    chmod 0755 build_blossom_graph.py
+
+    mv build_sql_stringdb_database.py /software/hamrhein
+    mv build_10x_tf_graphs.py /software/hamrhein
+    mv build_blossom_graph.py /software/hamrhein
+
+%runscript
+    echo -n "Downloading STRING database files..."
+    wget -q https://stringdb-static.org/download/protein.aliases.v11.0/10090.protein.aliases.v11.0.txt.gz
+    wget -q https://stringdb-static.org/download/protein.links.detailed.v11.0/10090.protein.links.detailed.v11.0.txt.gz
+    wget -q https://stringdb-static.org/download/protein.actions.v11.0/10090.protein.actions.v11.0.txt.gz
+    echo "done"
+
+    echo "Building database"
+    echo "-----------------"
+    build_sql_stringdb_database.py 10090.protein.aliases.v11.0.txt.gz 10090.protein.links.detailed.v11.0.txt.gz 10090.protein.actions.v11.0.txt.gz mus_musculus_stringdb_v11.0.db
+
+    rm 10090.protein.aliases.v11.0.txt.gz
+    rm 10090.protein.links.detailed.v11.0.txt.gz
+    rm 10090.protein.actions.v11.0.txt.gz
+
+    mkdir figure2 figure10
+
+    echo -n "Building Fig 2 Blossom Plot..."
+    build_blossom_graph.py /data/peng_bloom_adjacency_matrix.tsv /data/peng_bloom_cluster_size_table.txt --output_base figure2_blossom_graph --output_dir figure2
+    echo "done"
+
+    echo -n "Building Fig 4 and 10 10X TF graphs..."
+    build_10x_tf_graphs.py /data/MouseLimbData.h5 mus_musculus_stringdb_v11.0.db --output_dir figure10
+    echo "done"
+
+    exit 0
