@@ -133,13 +133,16 @@ def main(args):
     adjust_node_labels(A)
 
     A.layout(prog="sfdp")
-    A.draw("{}/{}".format(args.output_dir, args.output_file))
+
+    for ext in ("png", "pdf", "svg"):
+        outfile = "{}.{}".format(args.output_base, ext)
+        A.draw("{}/{}".format(args.output_dir, outfile))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate motif blossom plot")
     parser.add_argument("adjacency_table", help="Motif adjacency table")
     parser.add_argument("cluster_size_table", help="Cluster size table")
-    parser.add_argument("output_file", help="Blossom plot output")
+    parser.add_argument("--output_base", default="figure2_blossom_graph", help="Blossom plot output")
     parser.add_argument("--output_dir", default=".", help="Directory to put output into.  default: current directory")
     args = parser.parse_args()
     main(args)
