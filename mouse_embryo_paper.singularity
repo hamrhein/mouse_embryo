@@ -60,6 +60,7 @@ MirrorURL: http://ftp.us.debian.org/debian/
     echo "Building database"
     echo "-----------------"
     build_sql_stringdb_database.py 10090.protein.aliases.v11.0.txt.gz 10090.protein.links.detailed.v11.0.txt.gz 10090.protein.actions.v11.0.txt.gz mus_musculus_stringdb_v11.0.db
+    echo "-----------------"
 
     rm 10090.protein.aliases.v11.0.txt.gz
     rm 10090.protein.links.detailed.v11.0.txt.gz
