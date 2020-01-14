@@ -22,7 +22,7 @@ RUN wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/3
 RUN wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/8kZ7dPXrMPXnEAJ/download
 RUN unzip peng_bloom.zip && rm peng_bloom.zip
 
-RUN mkdir /software/sdbl && mv *.py /software/sdbl
+RUN mkdir -p /software/sdbl && mv *.py /software/sdbl
 
 RUN mkdir /software/hamrhein && mv util/*.{py,sh} /software/hamrhein
 
