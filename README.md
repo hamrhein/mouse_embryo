@@ -67,7 +67,7 @@ util/build_10x_tf_graphs.py /data/MouseLimbData.h5 mus_musculus_stringdb_v11.0.d
 
 ### Instructions for running with Singularity
 
-1. Download the singularity recipe
+1. Download the Singularity recipe
 
 ```
 wget https://github.com/hamrhein/mouse_embryo/raw/master/mouse_embryo_paper.singularity
@@ -84,4 +84,3 @@ singularity build mouse_embroy_paper.sif mouse_embryo_paper.singularity
 ```
 singularity run mouse_embroy_paper.sif
 ```
-
