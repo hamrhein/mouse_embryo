@@ -64,3 +64,24 @@ util/build_blossom_graph.py /data/peng_bloom_adjacency_matrix.tsv /data/peng_blo
 ```
 util/build_10x_tf_graphs.py /data/MouseLimbData.h5 mus_musculus_stringdb_v11.0.db --output_dir figure10
 ```
+
+### Instructions for running with Singularity
+
+1. Download the singularity recipe
+
+```
+wget https://github.com/hamrhein/mouse_embryo/raw/master/mouse_embryo_paper.singularity
+```
+
+2. Build the Singularity container
+
+```
+singularity build mouse_embroy_paper.sif mouse_embryo_paper.singularity
+```
+
+3. Run the Singularity container
+
+```
+singularity run mouse_embroy_paper.sif
+```
+
