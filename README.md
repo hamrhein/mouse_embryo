@@ -84,3 +84,23 @@ singularity build mouse_embroy_paper.sif mouse_embryo_paper.singularity
 ```
 singularity run mouse_embroy_paper.sif
 ```
+
+### Instructions for running with Docker
+
+1. Build the Docker container
+
+```
+docker build github.com/hamrhein/mouse_embryo -t mouse_embryo_paper
+```
+
+2.  Run the Docker container
+
+In order for this to work, you'll need to use a bind-mount so that the Docker
+container can write its output to the host machine's file system.
+
+```
+docker run -v [host directory]:/output -it mouse_embryo_paper
+```
+
+Replace '[host directory]' with the directory where you want the files to go.
+
