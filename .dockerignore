@@ -1,7 +1,3 @@
-colormap.py
-edge_engine.py
-graph.py
+.git
 mouse_embryo_paper.singularity
-sdbl.py
-sql.py
-**/*
+util/README.md
