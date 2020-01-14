@@ -23,7 +23,7 @@ RUN wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/8kZ
 RUN unzip peng_bloom.zip && rm peng_bloom.zip
 
 ADD *.py /software/sdbl/
-ADD util/*.{py,sh} /software/hamrhein/
+ADD util/*.py util/*.sh /software/hamrhein/
 
 WORKDIR /software/hamrhein
 RUN chmod 0755 *
