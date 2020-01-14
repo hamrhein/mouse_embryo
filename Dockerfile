@@ -6,8 +6,7 @@ ENV PATH="/software/hamrhein:${PATH}"
 
 RUN echo "deb http://ftp.us.debian.org/debian/ buster contrib non-free" >> /etc/apt/sources.list.d/01_repos.list
 
-RUN apt-get update
-RUN apt-get upgrade -y
+RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install -y apt-utils
 
@@ -21,24 +20,14 @@ WORKDIR /data
 
 RUN wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/3nMkLMckn7Gtzdr/download
 RUN wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/8kZ7dPXrMPXnEAJ/download
-RUN unzip peng_bloom.zip
-RUN rm peng_bloom.zip
+RUN unzip peng_bloom.zip && rm peng_bloom.zip
 
-WORKDIR /software/sdbl
+RUN mkdir /software/sdbl && mv *.py /software/sdbl
 
-RUN wget https://github.com/hamrhein/sdbl/archive/master.zip
-RUN unzip -j master.zip
-RUN rm master.zip
-
-RUN mkdir /software/hamrhein
-RUN mv build_sql_stringdb_database.py /software/hamrhein
-RUN mv build_10x_tf_graphs.py /software/hamrhein
-RUN mv build_blossom_graph.py /software/hamrhein
-RUN mv runscript.sh /software/hamrhein
+RUN mkdir /software/hamrhein && mv util/*.{py,sh} /software/hamrhein
 
 WORKDIR /software/hamrhein
-RUN chmod 0755 *.py
-RUN chmod 0755 runscript.sh
+RUN chmod 0755 *
 
 WORKDIR /output
 CMD ["/software/hamrhein/runscript.sh"]
