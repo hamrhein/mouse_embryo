@@ -76,13 +76,13 @@ wget https://github.com/hamrhein/mouse_embryo/raw/master/mouse_embryo_paper.sing
 2. Build the Singularity container
 
 ```
-singularity build mouse_embroy_paper.sif mouse_embryo_paper.singularity
+singularity build mouse_embryo_paper.sif mouse_embryo_paper.singularity
 ```
 
 3. Run the Singularity container
 
 ```
-singularity run mouse_embroy_paper.sif
+singularity run mouse_embryo_paper.sif
 ```
 
 ### Instructions for running with Docker
