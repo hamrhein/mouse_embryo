@@ -18,8 +18,8 @@ RUN apt-get clean
 
 WORKDIR /data
 
-RUN wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/3nMkLMckn7Gtzdr/download
-RUN wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/8kZ7dPXrMPXnEAJ/download
+RUN wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/syNtQbdGessF5NB/download
+RUN wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/MQ7DWssYTfmmPnR/download
 RUN unzip peng_bloom.zip && rm peng_bloom.zip
 
 ADD *.py /software/sdbl/
