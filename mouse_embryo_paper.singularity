@@ -14,15 +14,19 @@ MirrorURL: http://ftp.us.debian.org/debian/
 
 %environment
     export LANG="en_US.UTF-8"
-    export PYTHONPATH="/software/sdbl"
+    export PYTHONPATH="/software/hamrhein"
     export PATH="/software/hamrhein:$PATH"
 
 %setup
-    mkdir -p ${SINGULARITY_ROOTFS}/software/sdbl
+    mkdir -p ${SINGULARITY_ROOTFS}/software/hamrhein
     mkdir -p ${SINGULARITY_ROOTFS}/data
 
-    mkdir ${SINGULARITY_ROOTFS}/software/hamrhein
-
+%files
+    util/build_sql_stringdb_database.py /software/hamrhein
+    util/build_10x_tf_graphs.py /software/hamrhein
+    util/build_blossom_graph.py /software/hamrhein
+    *.py /software/hamrhein
+    
 %post
     echo "deb http://ftp.us.debian.org/debian/ buster contrib non-free" >> /etc/apt/sources.list.d/01_repos.list
     apt-get update
@@ -38,17 +42,7 @@ MirrorURL: http://ftp.us.debian.org/debian/
     unzip peng_bloom.zip
     rm peng_bloom.zip
     
-    cd /software/sdbl
-    wget https://github.com/hamrhein/sdbl/archive/master.zip
-    unzip -j master.zip
-    rm master.zip
-    chmod 0755 build_sql_stringdb_database.py
-    chmod 0755 build_10x_tf_graphs.py
-    chmod 0755 build_blossom_graph.py
-
-    mv build_sql_stringdb_database.py /software/hamrhein
-    mv build_10x_tf_graphs.py /software/hamrhein
-    mv build_blossom_graph.py /software/hamrhein
+    chmod 0755 /software/hamrhein/*.py
 
 %runscript
     echo -n "Downloading STRING database files..."
