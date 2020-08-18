@@ -16,14 +16,14 @@ RUN echo ttf-mscorefonts-installer msttcorefonts/present-mscorefonts-eula note |
 RUN apt-get install -y unzip wget python3 python3-numpy python3-pandas python3-matplotlib python3-pygraphviz python3-imageio ttf-mscorefonts-installer
 RUN apt-get clean
 
+COPY *.py /software/hamrhein/
+COPY util/*.py util/*.sh /software/hamrhein/
+
 WORKDIR /data
 
 RUN wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/syNtQbdGessF5NB/download
 RUN wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/MQ7DWssYTfmmPnR/download
 RUN unzip peng_bloom.zip && rm peng_bloom.zip
-
-ADD *.py /software/sdbl/
-ADD util/*.py util/*.sh /software/hamrhein/
 
 WORKDIR /software/hamrhein
 RUN chmod 0755 *
