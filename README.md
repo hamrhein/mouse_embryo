@@ -9,6 +9,19 @@ Peng He, Brian A. Williams, Georgi K. Marinov, Diane Trout, Henry Amrhein, Liber
 
 ### Instructions for running locally
 
+It is assumed that the following pre-requisites are installed on the local
+host:
+
+    *  unzip
+    *  wget
+    *  python 3.6 or higher
+    *  NumPy
+    *  Pandas
+    *  Matplotlib
+    *  PyGraphviz (https://pygraphviz.github.io)
+    *  imageio (https://imageio.github.io)
+    *  Microsoft TrueType fonts
+
 1. Clone or download the repository into a working directory
 
 ```
@@ -53,13 +66,22 @@ folders.
 mkdir figure2 figure10
 ```
 
-6. Build the Blossom graph for Figure 2
+6. Download the needed data files
+
+```
+wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/syNtQbdGessF5NB/download
+wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/MQ7DWssYTfmmPnR/download
+unzip peng_bloom.zip
+rm peng_bloom.zip
+```
+
+7. Build the Blossom graph for Figure 2
 
 ```
 util/build_blossom_graph.py /data/peng_bloom_adjacency_matrix.tsv /data/peng_bloom_cluster_size_table.txt --output_base figure2_blossom_graph --output_dir figure2
 ```
 
-7. Build the TF networks for extended Figure 10
+8. Build the TF networks for extended Figure 10
 
 ```
 util/build_10x_tf_graphs.py /data/MouseLimbData.h5 mus_musculus_stringdb_v11.0.db --output_dir figure10
