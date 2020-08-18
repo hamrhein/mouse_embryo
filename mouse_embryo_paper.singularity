@@ -33,8 +33,8 @@ MirrorURL: http://ftp.us.debian.org/debian/
     apt-get clean
 
     cd /data
-    wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/3nMkLMckn7Gtzdr/download
-    wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/8kZ7dPXrMPXnEAJ/download
+    wget -O MouseLimbData.h5 https://woldlab.caltech.edu/nextcloud/index.php/s/syNtQbdGessF5NB/download
+    wget -O peng_bloom.zip https://woldlab.caltech.edu/nextcloud/index.php/s/MQ7DWssYTfmmPnR/download
     unzip peng_bloom.zip
     rm peng_bloom.zip
     
