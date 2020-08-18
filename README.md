@@ -78,13 +78,13 @@ rm peng_bloom.zip
 7. Build the Blossom graph for Figure 2
 
 ```
-util/build_blossom_graph.py /data/peng_bloom_adjacency_matrix.tsv /data/peng_bloom_cluster_size_table.txt --output_base figure2_blossom_graph --output_dir figure2
+util/build_blossom_graph.py peng_bloom_adjacency_matrix.tsv peng_bloom_cluster_size_table.txt --output_base figure2_blossom_graph --output_dir figure2
 ```
 
 8. Build the TF networks for extended Figure 10
 
 ```
-util/build_10x_tf_graphs.py /data/MouseLimbData.h5 mus_musculus_stringdb_v11.0.db --output_dir figure10
+util/build_10x_tf_graphs.py MouseLimbData.h5 mus_musculus_stringdb_v11.0.db --output_dir figure10
 ```
 
 ### Instructions for running with Singularity
